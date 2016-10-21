@@ -1,5 +1,5 @@
 /**
- * AngularJS Google Maps Ver. 1.17.7
+ * AngularJS Google Maps Ver. 1.17.9
  *
  * The MIT License (MIT)
  * 
@@ -515,12 +515,15 @@ angular.module('ngMap', []);
       if (this.getProjection() && typeof this.position.lng == 'function') {
         var _this = this;
         var setPosition = function() {
-          var posPixel = _this.getProjection().fromLatLngToDivPixel(_this.position);
-          var x = Math.round(posPixel.x - (_this.el.offsetWidth/2));
-          var y = Math.round(posPixel.y - _this.el.offsetHeight - 10); // 10px for anchor
-          _this.el.style.left = x + "px";
-          _this.el.style.top = y + "px";
-          _this.el.style.visibility = "visible";
+          var projection = _this.getProjection();
+          if( projection ) {
+            var posPixel = projection.fromLatLngToDivPixel(_this.position);
+            var x = Math.round(posPixel.x - (_this.el.offsetWidth/2));
+            var y = Math.round(posPixel.y - _this.el.offsetHeight - 10); // 10px for anchor
+            _this.el.style.left = x + "px";
+            _this.el.style.top = y + "px";
+            _this.el.style.visibility = "visible";
+          }
         };
         if (_this.el.offsetWidth && _this.el.offsetHeight) { 
           setPosition();
